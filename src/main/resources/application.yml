@@ -4,5 +4,30 @@ server:
     context-path: /shixun
 spring:
   datasource:
+    #    加载数据库驱动
     driver-class-name: com.mysql.cj.jdbc.Driver
+    #    数据库链接
     url: jdbc:mysql://localhost:3306/summer?characterEncoding=utf8&useSSL=false&serverTimezone=UTC&rewriteBatchedStatements=true&allowPublicKeyRetrieval=true
+    #    数据库用户名
+    username: root
+    #    数据库密码
+    password: Xqh910662
+  thymeleaf:
+    #    返回路径的前缀
+    prefix: classpath:/templates/
+    #    返回路径的后缀
+    suffix: .html
+    #    关闭缓存
+    cache: false
+    #    编码
+    encoding: utf-8
+    #    模型
+    mode: HTML
+  mvc:
+    #    配置静态资源文件
+    static-path-pattern: /static/**
+mybatis:
+  #  mybatis返回实体类类型的路径
+  type-aliases-package: com.summer.classdemo.pojo
+  #  mybatis映射文件的路径
+  mapper-locations: classpath:/mapper/*Mapper.xml
