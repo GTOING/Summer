@@ -14,4 +14,9 @@ public class IndexController {
     public String index() {
         return "Welcome to this fucking page!";
     }
+
+    @RequestMapping("/tologin")
+    public String tologin() {
+        return "Login";
+    }
 }

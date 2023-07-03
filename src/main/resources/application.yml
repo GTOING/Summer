@@ -1,6 +1,8 @@
 server:
+#  端口号
   port: 8080
   servlet:
+    #    请求前缀
     context-path: /shixun
 spring:
   datasource:
