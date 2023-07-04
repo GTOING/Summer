@@ -10,4 +10,6 @@ import java.util.List;
 public interface CommodityMapper {
 
     List<Commodity> getCommodityList(CommodityVo commodityVo);
+
+    int commodityAdd(Commodity commodity);
 }

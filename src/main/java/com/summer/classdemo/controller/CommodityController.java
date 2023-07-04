@@ -1,5 +1,6 @@
 package com.summer.classdemo.controller;
 
+import com.summer.classdemo.pojo.Commodity;
 import com.summer.classdemo.pojo.CommodityVo;
 import com.summer.classdemo.service.CommodityService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,5 +21,16 @@ public class CommodityController {
     public Map<String, Object> getCommodityList(CommodityVo commodityVo) {
 
         return commodityService.getCommodityList(commodityVo);
+    }
+
+    @RequestMapping("/toadd")
+    public String toadd() {
+        return "commodityAdd";
+    }
+
+    @RequestMapping("/commodityAdd")
+    @ResponseBody
+    public Map<String, Object> commodityAdd(Commodity commodity) {
+        return commodityService.commodityAdd(commodity);
     }
 }

@@ -23,4 +23,18 @@ public class CommodityServiceImpl implements CommodityService {
         map.put("data", list);
         return map;
     }
+
+    @Override
+    public Map<String, Object> commodityAdd(Commodity commodity) {
+        Map<String, Object> map = new HashMap<>();
+        int i = commodityMapper.commodityAdd(commodity);
+        if (i > 0) {
+            map.put("isAdd", true);
+            map.put("msg", "新增成功");
+        } else {
+            map.put("isAdd", false);
+            map.put("msg", "新增失败");
+        }
+        return map;
+    }
 }

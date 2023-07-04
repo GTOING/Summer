@@ -3,6 +3,10 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.summer.classdemo.mapper.CommodityMapper">
+    <insert id="commodityAdd">
+        insert into tb_commodity(commodityName, brand, type, price)
+        values (#{commodityName}, #{brand}, #{type}, #{price})
+    </insert>
 
     <select id="getCommodityList" resultType="com.summer.classdemo.pojo.Commodity">
         select * from tb_commodity

@@ -30,7 +30,7 @@
         <div class="layui-side-scroll">
             <!-- 左侧导航区域（可配合layui已有的垂直导航） -->
             <ul class="layui-nav layui-nav-tree" lay-filter="test">
-                <li class="layui-nav-item"><a href="javascript:;">XX管理系统</a></li>
+                <li class="layui-nav-item"><a href="http://localhost:8080/shixun/toIndex">商品管理</a></li>
                 <li class="layui-nav-item"><a href="javascript:;">XX管理系统</a></li>
             </ul>
         </div>
@@ -84,6 +84,7 @@
                     <button type="reset" class="layui-btn layui-btn-primary">重置</button>
                 </div>
             </form>
+            <button class="layui-btn" style="float: right;margin-top: -3%" onclick="add()">新增</button>
             <table class="layui-table">
                 <tr>
                     <th>商品名称</th>
@@ -95,9 +96,13 @@
         </div>
     </div>
 </div>
-
+<script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-1.9.0.min.js"></script>
 <script src="//cdn.staticfile.org/layui/2.8.9/layui.js"></script>
 <script>
+    function add() {
+        location.href = "http://localhost:8080/shixun/commodity/toadd"
+    }
+
     //JS
     layui.use(['element', 'layer', 'util', 'form'], function () {
         var element = layui.element;
