@@ -84,6 +84,14 @@
                     <button type="reset" class="layui-btn layui-btn-primary">重置</button>
                 </div>
             </form>
+            <table class="layui-table">
+                <tr>
+                    <th>商品名称</th>
+                    <th>品牌</th>
+                    <th>商品类型</th>
+                    <th>商品价格</th>
+                </tr>
+            </table>
         </div>
     </div>
 </div>
@@ -97,6 +105,26 @@
         var util = layui.util;
         var form = layui.form;
         var $ = layui.$;
+        $.ajax({
+            url: "http://localhost:8080/shixun/commodity/getCommodityList",
+            dataType: "json",
+            type: "post",
+            success: function (res) {
+                var datas = res.data;
+                tableShow(datas);
+            }
+        })
+
+        function tableShow(data) {
+            for (var i = 0; i < data.length; i++) {
+                $("table").append("<tr class='asd'>" +
+                    "<td>" + data[i].commodityName + "</td>" +
+                    "<td>" + data[i].brand + "</td>" +
+                    "<td>" + data[i].type + "</td>" +
+                    "<td>" + data[i].price + "</td>" +
+                    "</tr>")
+            }
+        }
 
         form.on("submit(search)", function (data) {
             var field = data.field;//获取表单字段值
@@ -106,9 +134,12 @@
                 dataType: "json",
                 type: "post",
                 success: function (res) {
-
+                    var datas = res.data;
+                    $(".asd").remove();
+                    tableShow(datas);
                 }
             })
+            return false;
         })
 
         //头部事件
