@@ -15,8 +15,18 @@ public class IndexController {
         return "Welcome to this fucking page!";
     }
 
-    @RequestMapping("/tologin")
+    @RequestMapping("/")
     public String tologin() {
         return "Login";
+    }
+
+    @RequestMapping("/toIndex")
+    public String toIndex() {
+        return "index";
+    }
+
+    @RequestMapping("/toRegister")
+    public String toRegister() {
+        return "register";
     }
 }

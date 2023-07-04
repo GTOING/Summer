@@ -21,4 +21,10 @@ public class LoginController {
 
         return loginService.login(user);
     }
+
+    @RequestMapping("/register")
+    @ResponseBody
+    public Map<String, Object> register(LoginUser user) {
+        return loginService.register(user);
+    }
 }

@@ -9,4 +9,6 @@ import java.util.List;
 public interface LoginMapper {
 
     List<LoginUser> login(LoginUser user);
+
+    int register(LoginUser user);
 }
