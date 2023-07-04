@@ -9,11 +9,11 @@ spring:
     #    加载数据库驱动
     driver-class-name: com.mysql.cj.jdbc.Driver
     #    数据库链接
-    url: jdbc:mysql://localhost:3306/summer?characterEncoding=utf8&useSSL=false&serverTimezone=UTC&rewriteBatchedStatements=true&allowPublicKeyRetrieval=true
+    url: jdbc:mysql://localhost:3306/改这里?characterEncoding=utf8&useSSL=false&serverTimezone=UTC&rewriteBatchedStatements=true&allowPublicKeyRetrieval=true
     #    数据库用户名
-    username: root
+    username: 改这里
     #    数据库密码
-    password: Xqh910662
+    password: 改这里
   thymeleaf:
     #    返回路径的前缀
     prefix: classpath:/templates/
