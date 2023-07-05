@@ -92,6 +92,7 @@
                     <th>商品类型</th>
                     <th>商品价格</th>
                     <th>封面</th>
+                    <th>操作</th>
                 </tr>
             </table>
         </div>
@@ -102,6 +103,10 @@
 <script>
     function add() {
         location.href = "http://localhost:8080/shixun/commodity/toadd"
+    }
+
+    function toupd(id) {
+        location.href = "http://localhost:8080/shixun/commodity/toupd?id=" + id;
     }
 
     //JS
@@ -129,6 +134,10 @@
                     "<td>" + data[i].type + "</td>" +
                     "<td>" + data[i].price + "</td>" +
                     "<td><img src ='" + data[i].img_url + "'/></td>" +
+                    "<td>" +
+                    "<button class='layui-btn layui-btn-warm' onclick='toupd(" + data[i].id + ")'>修改</button>" +
+                    "<button class='layui-btn layui-btn-danger' onclick='todel(" + data[i].id + ")'>删除</button>" +
+                    "</td>" +
                     "</tr>")
             }
         }

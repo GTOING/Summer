@@ -37,4 +37,17 @@ public class CommodityServiceImpl implements CommodityService {
         }
         return map;
     }
+
+    @Override
+    public Map<String, Object> getCommodityById(Integer id) {
+        Map<String, Object> map = new HashMap<>();
+        Commodity commodity = commodityMapper.getCommodityById(id);
+        if (commodity == null) {
+            map.put("code", 500);
+        } else {
+            map.put("code", 200);
+            map.put("data", commodity);
+        }
+        return map;
+    }
 }

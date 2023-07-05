@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 import java.util.Map;
 
@@ -32,5 +33,19 @@ public class CommodityController {
     @ResponseBody
     public Map<String, Object> commodityAdd(Commodity commodity) {
         return commodityService.commodityAdd(commodity);
+    }
+
+    @RequestMapping("/toupd")
+    public ModelAndView toupd(Integer id) {
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("commodityUpd");
+        modelAndView.addObject("id", id);
+        return modelAndView;
+    }
+
+    @RequestMapping("/getCommodityById")
+    @ResponseBody
+    public Map<String, Object> getCommodityById(Integer id) {
+        return commodityService.getCommodityById(id);
     }
 }

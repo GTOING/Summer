@@ -12,4 +12,6 @@ public interface CommodityMapper {
     List<Commodity> getCommodityList(CommodityVo commodityVo);
 
     int commodityAdd(Commodity commodity);
+
+    Commodity getCommodityById(Integer id);
 }

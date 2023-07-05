@@ -26,4 +26,9 @@
             </if>
         </where>
     </select>
+    <select id="getCommodityById" resultType="com.summer.classdemo.pojo.Commodity">
+        select *
+        from tb_commodity
+        where id = #{id}
+    </select>
 </mapper>
