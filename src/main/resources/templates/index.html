@@ -85,24 +85,31 @@
                 </div>
             </form>
             <button class="layui-btn" style="float: right;margin-top: -3%" onclick="add()">新增</button>
-            <table class="layui-table">
-                <tr>
-                    <th>商品名称</th>
-                    <th>品牌</th>
-                    <th>商品类型</th>
-                    <th>商品价格</th>
-                    <th>封面</th>
-                    <th>操作</th>
-                </tr>
+            <table class="layui-hide" id="table">
+                <!--                <tr>-->
+                <!--                    <th>商品名称</th>-->
+                <!--                    <th>品牌</th>-->
+                <!--                    <th>商品类型</th>-->
+                <!--                    <th>商品价格</th>-->
+                <!--                    <th>封面</th>-->
+                <!--                    <th>操作</th>-->
+                <!--                </tr>-->
             </table>
         </div>
     </div>
 </div>
+<script type="text/html" id="barDemo" lay-filter="test">
+    <div class="layui-clear-space">
+        <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
+        <a class="layui-btn layui-btn-xs" lay-event="del">删除</a>
+    </div>
+</script>
+<!--jquery.js-->
 <script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-1.9.0.min.js"></script>
 <script src="//cdn.staticfile.org/layui/2.8.9/layui.js"></script>
 <script>
     function add() {
-        location.href = "http://localhost:8080/shixun/commodity/toadd"
+        location.href = "http://localhost:8080/shixun/commodity/toadd";
     }
 
     function toupd(id) {
@@ -119,6 +126,7 @@
         var layer = layui.layer;
         var util = layui.util;
         var form = layui.form;
+        var table = layui.table;
         var $ = layui.$;
         $.ajax({
             url: "http://localhost:8080/shixun/commodity/getCommodityList",
@@ -129,25 +137,67 @@
                 tableShow(datas);
             }
         })
+        table.on('tool(table)', function (obj) { // 双击 toolDouble
+            console.log("123");
+            var data = obj.data; // 获得当前行数据
+            // console.log(obj)
+            if (obj.event === 'edit') {
+                toupd(data.id);
+            } else if (obj.event === 'del') {
+                todel(data.id);
+            }
+        });
 
         function tableShow(data) {
-            for (var i = 0; i < data.length; i++) {
-                $("table").append("<tr class='asd'>" +
-                    "<td>" + data[i].commodityName + "</td>" +
-                    "<td>" + data[i].brand + "</td>" +
-                    "<td>" + data[i].type + "</td>" +
-                    "<td>" + data[i].price + "</td>" +
-                    "<td><img src ='" + data[i].img_url + "'/></td>" +
-                    "<td>" +
-                    "<button class='layui-btn layui-btn-warm' onclick='toupd(" + data[i].id + ")'>修改</button>" +
-                    "<button class='layui-btn layui-btn-danger' onclick='todel(" + data[i].id + ")'>删除</button>" +
-                    "</td>" +
-                    "</tr>")
-            }
+            // for(var i=0;i<data.length;i++){
+            //     $("table").append("<tr class='asd'>" +
+            //         "<td>"+data[i].commodityName+"</td>" +
+            //         "<td>"+data[i].brand+"</td>" +
+            //         "<td>"+data[i].type+"</td>" +
+            //         "<td>"+data[i].price+"</td>" +
+            //         "<td><img src='"+data[i].img_url+"'/></td>" +
+            //         "<td>" +
+            //         "<button class='layui-btn layui-btn-warm' onclick='toupd("+data[i].id+")'>修改</button>" +
+            //         "<button class='layui-btn layui-btn-danger' onclick='todel("+data[i].id+")'>删除</button>" +
+            //         "</td>" +
+            //         "</tr>")
+            // }
+            table.render({
+                elem: '#table',
+                cols: [
+                    [ //标题栏
+                        {field: 'id', title: 'id', width: 240},
+                        {field: 'commodityName', title: '商品名', width: 240},
+                        {field: 'brand', title: '品牌', width: 200},
+                        {field: 'type', title: '类型', width: 440},
+                        {field: 'price', title: '价格', width: 120, sort: true},
+                        {
+                            field: 'img_url', title: '封面', width: 520, templet: function (data) {
+                                return "<img src='" + data.img_url + "' />"
+                            }
+                        },
+                        {fixed: 'right', title: '操作', width: 134, minWidth: 125, toolbar: '#barDemo'}
+                    ]
+                ],
+                data: data,
+                //skin: 'line', // 表格风格
+                //even: true,
+                page: true, // 是否显示分页
+                limits: [5, 10, 15],
+                limit: 5 // 每页默认显示的数量
+            });
+            // 设置对应列的显示或隐藏
+            table.hideCol('table', {
+                field: 'id', // 对应表头的 field 属性值
+                hide: true // `true` or `false`
+            });
         }
 
+        /**
+         * 搜索事件
+         */
         form.on("submit(search)", function (data) {
-            var field = data.field;//获取表单字段值
+            var field = data.field; // 获取表单字段值
             $.ajax({
                 url: "http://localhost:8080/shixun/commodity/getCommodityList",
                 data: field,
