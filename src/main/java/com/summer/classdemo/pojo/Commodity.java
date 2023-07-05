@@ -9,4 +9,5 @@ public class Commodity {
     private String brand;
     private String type;
     private Double price;
+    private String img_url;
 }
