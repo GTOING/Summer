@@ -1,9 +1,7 @@
 package com.summer.classdemo.util;
 
 import org.springframework.web.multipart.MultipartFile;
-
-import java.util.Base64;
-import java.util.Base64.Encoder;
+import sun.misc.BASE64Encoder;
 
 import java.io.IOException;
 
@@ -24,10 +22,9 @@ public class Base64Util {
         String contentType = file.getContentType();
         byte[] imageBytes = null;
         String base64EncoderImg = "";
-
         try {
             imageBytes = file.getBytes();
-            Encoder base64Encoder = Base64.getEncoder();
+            BASE64Encoder base64Encoder = new BASE64Encoder();
             /**
              * 1.Java使用BASE64Encoder 需要添加图片头（"data:" + contentType + ";base64,"），
              *   其中contentType是文件的内容格式。
