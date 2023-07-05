@@ -33,7 +33,8 @@
                         <div class="layui-input-prefix">
                             <i class="layui-icon layui-icon-password"></i>
                         </div>
-                        <input type="text" name="commodityName" value="" lay-verify="required" placeholder="商品名称"
+                        <input type="text" name="commodityName" id="commodityName" lay-verify="required"
+                               placeholder="商品名称"
                                autocomplete="off" class="layui-input">
                     </div>
                 </div>
@@ -42,7 +43,7 @@
                         <div class="layui-input-prefix">
                             <i class="layui-icon layui-icon-username"></i>
                         </div>
-                        <input type="text" name="brand" value="" lay-verify="required" placeholder="品牌"
+                        <input type="text" name="brand" id="brand" lay-verify="required" placeholder="品牌"
                                autocomplete="off" class="layui-input" lay-affix="clear">
                     </div>
                 </div>
@@ -50,12 +51,12 @@
                     <label class="layui-form-label">类型</label>
                     <div class="layui-input-block">
                         <select name="type" lay-filter="aihao">
-                            <option value=""></option>
-                            <option value="速食">速食</option>
-                            <option value="1">阅读</option>
-                            <option value="2">游戏</option>
-                            <option value="3">音乐</option>
-                            <option value="4">旅行</option>
+                            <option value="" class="type"></option>
+                            <option value="速食" class="type">速食</option>
+                            <option value="1" class="type">阅读</option>
+                            <option value="2" class="type">游戏</option>
+                            <option value="3" class="type">音乐</option>
+                            <option value="4" class="type">旅行</option>
                         </select>
                     </div>
                 </div>
@@ -64,7 +65,7 @@
                         <div class="layui-input-prefix">
                             <i class="layui-icon layui-icon-username"></i>
                         </div>
-                        <input type="number" name="price" value="" lay-verify="required" placeholder="价格"
+                        <input type="number" name="price" id="price" lay-verify="required" placeholder="价格"
                                autocomplete="off" class="layui-input" lay-affix="clear">
                     </div>
                 </div>
@@ -109,6 +110,17 @@
             type: "post",
             success: function (res) {
                 console.log(res);
+                var data = res.data;
+                $('#ID-upload-demo-img').attr('src', data.img_url);
+                $("#commodityName").val(data.commodityName);
+                $("#brand").val(data.brand);
+                $("#price").val(data.price);
+                $(".type").map(function () {
+                    if (this.value == data.type) {
+                        $(this).attr("selected", true);
+                    }
+                })
+                form.render();
             }
         })
 
