@@ -82,7 +82,7 @@
                     </div>
                 </div>
                 <div class="layui-form-item">
-                    <button class="layui-btn layui-btn-fluid" lay-submit lay-filter="demo-reg">新增</button>
+                    <button class="layui-btn layui-btn-fluid" lay-submit lay-filter="demo-reg">修改</button>
                 </div>
             </div>
         </form>
@@ -102,6 +102,7 @@
         var element = layui.element;
 
         var id = $("#id").val();
+        var img_url = '';
 
         $.ajax({
             url: "http://localhost:8080/shixun/commodity/getCommodityById",
@@ -111,6 +112,7 @@
             success: function (res) {
                 console.log(res);
                 var data = res.data;
+                img_url = data.img_url;
                 $('#ID-upload-demo-img').attr('src', data.img_url);
                 $("#commodityName").val(data.commodityName);
                 $("#brand").val(data.brand);
@@ -124,7 +126,7 @@
             }
         })
 
-        var img_url = '';
+
         // 单图片上传
         var uploadInst = upload.render({
             elem: '#ID-upload-demo-btn',
@@ -168,21 +170,17 @@
         // 提交事件
         form.on('submit(demo-reg)', function (data) {
             var field = data.field; // 获取表单字段值
-            if (img_url == '') {
-                alert("请选择封面");
-                return false;
-            } else {
-                field.img_url = img_url;
-            }
+            field.id = id;
+            field.img_url = img_url;
             // 此处可执行 Ajax 等操作
             // …
             $.ajax({
-                url: "http://localhost:8080/shixun/commodity/commodityAdd",
+                url: "http://localhost:8080/shixun/commodity/commodityUpd",
                 data: field,
                 dataType: "json",
                 type: "post",
                 success: function (res) {
-                    if (res.isAdd) {
+                    if (res.isupd) {
                         alert(res.msg);
                         location.href = "http://localhost:8080/shixun/toIndex";
                     } else {

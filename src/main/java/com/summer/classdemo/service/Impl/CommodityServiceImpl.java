@@ -50,4 +50,25 @@ public class CommodityServiceImpl implements CommodityService {
         }
         return map;
     }
+
+    @Override
+    public void del(Integer id) {
+        commodityMapper.del(id);
+    }
+
+    @Override
+    public Map<String, Object> commodityUpd(Commodity commodity) {
+        HashMap<String, Object> map = new HashMap<>();
+        int i = commodityMapper.commodityUpd(commodity);
+        if (i > 0) {
+            map.put("code", 200);
+            map.put("isupd", true);
+            map.put("msg", "修改成功，跳转至列表");
+        } else {
+            map.put("code", 500);
+            map.put("isupd", false);
+            map.put("msg", "修改失败，请重新修改");
+        }
+        return map;
+    }
 }

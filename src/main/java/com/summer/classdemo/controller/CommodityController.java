@@ -48,4 +48,16 @@ public class CommodityController {
     public Map<String, Object> getCommodityById(Integer id) {
         return commodityService.getCommodityById(id);
     }
+
+    @RequestMapping("/todel")
+    public String del(Integer id) {
+        commodityService.del(id);
+        return "redirect:/toIndex";
+    }
+
+    @RequestMapping("/commodityUpd")
+    @ResponseBody
+    public Map<String, Object> commodityUpd(Commodity commodity) {
+        return commodityService.commodityUpd(commodity);
+    }
 }

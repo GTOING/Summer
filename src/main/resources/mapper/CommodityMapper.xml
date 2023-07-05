@@ -7,6 +7,20 @@
         insert into tb_commodity(commodityName, brand, type, price, img_url)
         values (#{commodityName}, #{brand}, #{type}, #{price}, #{img_url})
     </insert>
+    <update id="commodityUpd">
+        update tb_commodity
+        set commodityName = #{commodityName},
+            brand         = #{brand},
+            type          = #{type},
+            price         = #{price},
+            img_url       = #{img_url}
+        where id = #{id}
+    </update>
+    <delete id="del">
+        delete
+        from tb_commodity
+        where id = #{id}
+    </delete>
 
     <select id="getCommodityList" resultType="com.summer.classdemo.pojo.Commodity">
         select * from tb_commodity

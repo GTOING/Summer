@@ -11,4 +11,8 @@ public interface CommodityService {
     Map<String, Object> commodityAdd(Commodity commodity);
 
     Map<String, Object> getCommodityById(Integer id);
+
+    void del(Integer id);
+
+    Map<String, Object> commodityUpd(Commodity commodity);
 }
