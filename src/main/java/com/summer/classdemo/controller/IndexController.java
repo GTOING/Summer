@@ -43,4 +43,9 @@ public class IndexController {
     public Map<String, Object> fileUpload(MultipartFile file) {
         return uploadService.fileUpload(file);
     }
+
+    @RequestMapping("/toOrder")
+    public String toOrder() {
+        return "order";
+    }
 }

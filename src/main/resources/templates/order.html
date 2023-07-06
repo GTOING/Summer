@@ -31,7 +31,7 @@
             <!-- 左侧导航区域（可配合layui已有的垂直导航） -->
             <ul class="layui-nav layui-nav-tree" lay-filter="test">
                 <li class="layui-nav-item"><a href="http://localhost:8080/shixun/toIndex">商品管理</a></li>
-                <li class="layui-nav-item"><a href="http://localhost:8080/shixun/toOrder">订单</a></li>
+                <li class="layui-nav-item"><a href="http://localhost:8080/shixun/toOrder">订单管理</a></li>
             </ul>
         </div>
     </div>
@@ -39,43 +39,32 @@
         <!-- 内容主体区域 -->
         <div style="padding: 15px;">
             <blockquote class="layui-elem-quote layui-text">
-                商品列表
+                订单列表
             </blockquote>
             <form class="layui-form layui-form-pane" action="">
                 <div class="layui-form-item">
                     <div class="layui-inline">
+                        <label class="layui-form-label">订单编号</label>
+                        <div class="layui-input-inline">
+                            <input type="text" name="orderNumber" autocomplete="off" class="layui-input">
+                        </div>
+                    </div>
+                    <div class="layui-inline">
                         <label class="layui-form-label">商品名称</label>
                         <div class="layui-input-inline">
-                            <input type="text" name="commodityName" autocomplete="off" class="layui-input">
+                            <input type="text" name="orderName" autocomplete="off" class="layui-input">
                         </div>
                     </div>
                     <div class="layui-inline">
-                        <label class="layui-form-label">品牌</label>
+                        <label class="layui-form-label">下单时间</label>
                         <div class="layui-input-inline">
-                            <input type="text" name="brand" autocomplete="off" class="layui-input">
+                            <input type="text" class="layui-input" id="ID-laydate-demo" placeholder="yyyy-MM-dd">
                         </div>
                     </div>
                     <div class="layui-inline">
-                        <label class="layui-form-label">商品类型</label>
+                        <label class="layui-form-label">数量</label>
                         <div class="layui-input-inline">
-                            <select name="type" lay-filter="type">
-                                <option value=""></option>
-                                <option value="0">类型1</option>
-                                <option value="1">类型2</option>
-                                <option value="2">类型3</option>
-                                <option value="3">类型4</option>
-                                <option value="4">类型5</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="layui-inline">
-                        <label class="layui-form-label">价格区间</label>
-                        <div class="layui-input-inline" style="width: 100px;">
-                            <input type="text" name="price_min" placeholder="￥" autocomplete="off" class="layui-input">
-                        </div>
-                        <div class="layui-form-mid">-</div>
-                        <div class="layui-input-inline" style="width: 100px;">
-                            <input type="text" name="price_max" placeholder="￥" autocomplete="off" class="layui-input">
+                            <input type="text" name="orderQuantity" autocomplete="off" class="layui-input">
                         </div>
                     </div>
                 </div>
@@ -104,6 +93,16 @@
         <a class="layui-btn layui-btn-xs" lay-event="del">删除</a>
     </div>
 </script>
+<script src="//unpkg.com/layui@2.8.10/dist/layui.js"></script>
+<script>
+    layui.use(function () {
+        var laydate = layui.laydate;
+        // 渲染
+        laydate.render({
+            elem: '#ID-laydate-demo'
+        });
+    });
+</script>
 <!--jquery.js-->
 <script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-1.9.0.min.js"></script>
 <script src="//cdn.staticfile.org/layui/2.8.9/layui.js"></script>
@@ -129,7 +128,7 @@
         var table = layui.table;
         var $ = layui.$;
         $.ajax({
-            url: "http://localhost:8080/shixun/commodity/getCommodityList",
+            url: "http://localhost:8080/shixun/order/getOrderList",
             dataType: "json",
             type: "post",
             success: function (res) {
@@ -166,16 +165,11 @@
                 elem: '#table',
                 cols: [
                     [ //标题栏
-                        {field: 'id', title: 'id', width: 240},
-                        {field: 'commodityName', title: '商品名', width: 240},
-                        {field: 'brand', title: '品牌', width: 200},
-                        {field: 'type', title: '类型', width: 440},
-                        {field: 'price', title: '价格', width: 120, sort: true},
-                        {
-                            field: 'img_url', title: '封面', width: 520, templet: function (data) {
-                                return "<img src='" + data.img_url + "' />"
-                            }
-                        },
+                        {field: 'orderId', title: '订单ID', width: 240},
+                        {field: 'orderNumber', title: '订单编号', width: 240},
+                        {field: 'orderName', title: '商品名称', width: 200},
+                        {field: 'orderDate', title: '下单时间', width: 440},
+                        {field: 'orderQuantity', title: '数量', width: 120, sort: true},
                         {fixed: 'right', title: '操作', width: 134, minWidth: 125, toolbar: '#barDemo'}
                     ]
                 ],
@@ -199,7 +193,7 @@
         form.on("submit(search)", function (data) {
             var field = data.field; // 获取表单字段值
             $.ajax({
-                url: "http://localhost:8080/shixun/commodity/getCommodityList",
+                url: "http://localhost:8080/shixun/commodity/getOrderList",
                 data: field,
                 dataType: "json",
                 type: "post",

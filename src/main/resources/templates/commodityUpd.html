@@ -50,13 +50,7 @@
                 <div class="layui-form-item" style="margin-left: -20%">
                     <label class="layui-form-label">类型</label>
                     <div class="layui-input-block">
-                        <select name="type" lay-filter="aihao">
-                            <option value="" class="type"></option>
-                            <option value="速食" class="type">速食</option>
-                            <option value="1" class="type">阅读</option>
-                            <option value="2" class="type">游戏</option>
-                            <option value="3" class="type">音乐</option>
-                            <option value="4" class="type">旅行</option>
+                        <select name="type" id="type">
                         </select>
                     </div>
                 </div>
@@ -100,6 +94,20 @@
         var util = layui.util;
         var upload = layui.upload;
         var element = layui.element;
+
+        $.ajax({
+            url: "http://localhost:8080/shixun/type/getType",
+            dataType: "json",
+            type: "get",
+            async: false,
+            success: function (res) {
+                var data = res.data;
+                for (var i = 0; i < data.length; i++) {
+                    $("#type").append("<option value='" + data[i].type + "' class='type'>" + data[i].type + "</option>")
+                }
+                form.render();
+            }
+        })
 
         var id = $("#id").val();
         var img_url = '';

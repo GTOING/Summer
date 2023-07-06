@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.summer.classdemo.mapper.TypeMapper">
+
+    <select id="getType" resultType="com.summer.classdemo.pojo.TbType">
+        select *
+        from tb_type
+        order by sort desc
+    </select>
+</mapper>
